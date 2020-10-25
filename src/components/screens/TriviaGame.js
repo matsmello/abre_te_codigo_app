@@ -156,7 +156,7 @@ class TriviaGame extends React.Component {
           <View style={styles.container}>
             <View style={styles.headerContainer}>
               <Text style={styles.headerTitle}>
-                Question {currentQuestionNumber}/{totalQuestionsSize}
+                Pergunta {currentQuestionNumber}/{totalQuestionsSize}
               </Text>
               <Text style={styles.categoryText}>
                 {this.props.selectedCategory} -{" "}

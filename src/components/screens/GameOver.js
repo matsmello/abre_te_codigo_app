@@ -14,7 +14,7 @@ import LottieView from "lottie-react-native";
 import Button from "../Button";
 import { goToMainMenu, startGameSelection } from "../../actions";
 import { scale, moderateScale, verticalScale } from "../../Scaling";
-
+import questionsMockup from "./../../mockups/questions";
 // Static assets
 const GOOD_ANIMATION = require("../../../assets/animations/677-trophy.json");
 const AVERAGE_ANIMATION = require("../../../assets/animations/2144-little-girl-jumping-loader.json");
@@ -249,14 +249,13 @@ const mapStateToProps = ({ trivia }) => {
   // Elapsed time in seconds
   const elapsedTime = Math.round((endTime - startTime) / 1000);
 
-  const totalQuestionsNumber = questions.length;
+  const totalQuestionsNumber = questionsMockup.length;
 
   const scorePercent = totalScore / totalQuestionsNumber;
 
   return {
-    selectedCategory: categories.filter(
-      (category) => category.value === selectedCategoryId
-    )[0].label,
+    selectedCategory: categories.filter((category) => category.value === 0)[0]
+      .label,
     elapsedTime,
     scorePercent,
     selectedDifficulty,
