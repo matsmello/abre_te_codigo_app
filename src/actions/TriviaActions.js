@@ -13,6 +13,7 @@ import {
 } from "./types";
 import { shuffleArray } from "../Utils";
 import * as TriviaAPI from "../TriviaAPI";
+import questionsMockup from "./../mockups/questions";
 
 /**
  * @description Fetch the quiz categories, parse the response and dispatch success or error action.
@@ -36,11 +37,6 @@ export const triviaCategoryFetch = () => {
           value: -1,
         });
 
-        // console.log("categories", categories);
-        // dispatch({
-        //   type: TRIVIA_FETCH_CATEGORIES_SUCCESS,
-        //   payload: categories,
-        // });
         dispatch({
           type: TRIVIA_FETCH_CATEGORIES_SUCCESS,
           payload: [
@@ -89,14 +85,18 @@ export const triviaFetch = (
           options.push(question.correct_answer);
           options = shuffleArray(options);
 
-          return {
-            options: options.map((option) => entities.decode(option)),
-            category: question.category,
-            difficulty: question.difficulty,
-            type: question.type,
-            correct_answer: entities.decode(question.correct_answer),
-            question: entities.decode(question.question),
-          };
+          // return {
+          //   options: options.map((option) => entities.decode(option)),
+          //   category: question.category,
+          //   difficulty: question.difficulty,
+          //   type: question.type,
+          //   correct_answer: entities.decode(question.correct_answer),
+          //   question: entities.decode(question.question),
+          // };
+
+          return questionsMockup[
+            Math.floor(Math.random() * questionsMockup.length)
+          ];
         });
         //console.log(formatedQuestions);
         dispatch({ type: TRIVIA_FETCH_SUCCESS, payload: formatedQuestions });
