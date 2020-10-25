@@ -116,7 +116,12 @@ class GameOver extends React.Component {
       <View style={styles.container}>
         {this.state.fontLoaded && (
           <SafeAreaView style={styles.gameOverData}>
-            <ScrollView style={{ flex: 1 }}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+              }}
+            >
               <View style={styles.gameOverInternal}>
                 <Text style={styles.gameOverTitle}>Fim de jogo</Text>
                 <LottieView
@@ -132,7 +137,7 @@ class GameOver extends React.Component {
                   Ranking: {totalScore} de {totalQuestionsNumber}
                 </Text>
                 <Text style={styles.gameStatusText}>
-                  Tempo total: {elapsedTime} seconds
+                  Tempo total: {elapsedTime} segundos
                 </Text>
                 <Text style={styles.gameStatusText}>
                   Categoria: {selectedCategory}
@@ -140,12 +145,14 @@ class GameOver extends React.Component {
                 <Text style={styles.gameStatusText}>
                   Dificuldade: {selectedDifficulty}
                 </Text>
-                <Button onPress={startGameSelection}>Jogar novamente</Button>
+                <Button style={styles.playAgain} onPress={startGameSelection}>
+                  Jogar novamente
+                </Button>
                 <Button style={styles.mainMenuButton} onPress={goToMainMenu}>
                   Voltar para o início
                 </Button>
               </View>
-            </ScrollView>
+            </View>
           </SafeAreaView>
         )}
       </View>
@@ -162,22 +169,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#DA5F26",
   },
   gameOverData: {
-    padding: scale(16),
     marginTop: scale(40),
     marginBottom: scale(32),
     alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
     borderRadius: 8,
-    borderColor: "#ffffff",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
   },
   gameOverInternal: {
-    alignSelf: "center",
     alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-    alignContent: "center",
+    borderColor: "#ffffff",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    minWidth: "100%",
   },
   gameOverMessage: {
     fontSize: moderateScale(28),
@@ -205,9 +206,28 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 2,
   },
+  playAgain: {
+    marginBottom: scale(25),
+    shadowColor: "white",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    elevation: 5,
+  },
   mainMenuButton: {
-    marginBottom: scale(50),
-    backgroundColor: "#DC143C",
+    marginBottom: scale(25),
+    backgroundColor: "#DA5F26",
+    shadowColor: "white",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    elevation: 5,
   },
   statusAnimation: {
     width: scale(200),

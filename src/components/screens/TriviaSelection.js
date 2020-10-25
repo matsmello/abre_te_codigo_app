@@ -84,7 +84,7 @@ class TriviaSelection extends React.Component {
         <TriviaLoader
           loading={this.props.loading}
           error={this.props.error}
-          loadingText="Requesting Categories"
+          loadingText="Carregando"
           onRetryPressed={() => this.props.startGameSelection()}
         >
           <View style={styles.container}>
