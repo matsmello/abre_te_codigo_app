@@ -67,18 +67,20 @@ class MainMenu extends React.Component {
               <Text style={styles.gameTitle}> StArt </Text>
             </View>
           )}
-          <Button
-            style={styles.playButton}
-            onPress={this.props.startGameSelection}
-          >
-            Jogar
-          </Button>
-          <Button
-            style={styles.playButton}
-            onPress={this.props.startGameSelection}
-          >
-            Criar jogo
-          </Button>
+          <View style={{ marginBottom: 30 }}>
+            <Button
+              style={styles.playButton}
+              onPress={this.props.startGameSelection}
+            >
+              Jogar
+            </Button>
+            <Button
+              style={styles.playButton}
+              onPress={this.props.startGameSelection}
+            >
+              Criar jogo
+            </Button>
+          </View>
           {this.renderCardGame()}
         </ImageBackground>
       </View>
@@ -105,8 +107,16 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(50),
   },
   playButton: {
-    marginBottom: scale(10),
+    marginBottom: scale(25),
     backgroundColor: "#DA5F26",
+    shadowColor: "white",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    elevation: 5,
   },
   githubButton: {
     marginBottom: scale(50),
