@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { connect } from "react-redux";
 import { Audio } from "expo-av";
 import CountdownCircle from "react-native-countdown-circle";
@@ -163,6 +163,25 @@ class TriviaGame extends React.Component {
                 {capitalizeFirstLetter(currentQuestion.difficulty)}
               </Text>
             </View>
+            {console.log(currentQuestion)}
+            {currentQuestion.image ? (
+              <Image
+                source={{ uri: currentQuestion.image }}
+                resizeMode="contain"
+                style={{
+                  borderWidth: 5,
+                  borderRadius: 10,
+                  borderColor: "white",
+                  backgroundColor: "white",
+                  height: 100,
+                  width: "90%",
+                  margin: 20,
+                  flex: 1,
+                  justifyContent: "center",
+                  alignSelf: "center",
+                }}
+              />
+            ) : null}
             <Question
               question={currentQuestion.question}
               options={currentQuestion.options}

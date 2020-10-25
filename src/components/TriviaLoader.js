@@ -5,7 +5,7 @@ import Button from "./Button";
 import { scale, moderateScale, verticalScale } from "../Scaling";
 
 // Assets
-const BACKGROUND_IMAGE = require("../../assets/images/game_background.png");
+const BACKGROUND_IMAGE = require("../../assets/images/background.png");
 const BACKGROUND_IMAGE_ACTIVE = require("../../assets/images/background.png");
 const LOADING_ANIMATION = require("../../assets/animations/2151-loading-hamster.json");
 const ERROR_ANIMATION = require("../../assets/animations/4386-connection-error.json");
