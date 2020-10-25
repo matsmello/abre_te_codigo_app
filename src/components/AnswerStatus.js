@@ -51,16 +51,16 @@ class AnswerStatus extends React.Component {
     switch (this.props.type) {
       case "correct":
         animation = CORRECT_ANIMATION;
-        statusMessage = "Correct!!!";
+        statusMessage = "Acertou";
         statusStyle = styles.correctText;
         break;
       case "incorrect":
         animation = INCORRECT_ANIMATION;
-        statusMessage = "Incorrect!!!";
+        statusMessage = "Errou";
         statusStyle = styles.errorText;
         break;
       default:
-        statusMessage = "Time over!!!";
+        statusMessage = "Acabou o tempo";
         statusStyle = styles.timeoutText;
         animation = TIMEOUT_ANIMATION;
     }
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(40),
     textShadowRadius: 10,
     marginTop: moderateScale(-60),
+    textAlign: "center",
   },
   correctText: {
     color: "#00C871",
