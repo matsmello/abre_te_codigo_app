@@ -1,5 +1,12 @@
 import React from "react";
-import { ImageBackground, Linking, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  Linking,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from "react-native";
 import { connect } from "react-redux";
 import * as Font from "expo-font";
 import Button from "../Button";
@@ -62,11 +69,13 @@ class MainMenu extends React.Component {
           source={BACKGROUND_IMAGE}
           resizeMode="cover"
         >
-          {this.state.fontLoaded && (
-            <View style={styles.gameTitleContainer}>
-              <Text style={styles.gameTitle}> StArt </Text>
-            </View>
-          )}
+          <View style={styles.gameTitleContainer}>
+            <Image
+              source={require("./../../../assets/images/logo.jpeg")}
+              style={{ width: 300, height: 200, borderRadius: 40 }}
+              resizeMode="contain"
+            />
+          </View>
           <View style={{ marginBottom: 30 }}>
             <Button
               style={styles.playButton}
