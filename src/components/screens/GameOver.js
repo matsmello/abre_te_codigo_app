@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   ImageBackground,
+  SafeAreaView,
 } from "react-native";
 import { connect } from "react-redux";
 import { Audio } from "expo-av";
@@ -100,59 +101,53 @@ class GameOver extends React.Component {
     if (scorePercent >= 0.8) {
       animation = GOOD_ANIMATION;
       scoreColor = "#14AB00";
-      message = "Congratulations, you rock!";
+      message = "Parabéns, você é demais!";
     } else if (scorePercent > 0.5) {
       animation = AVERAGE_ANIMATION;
       scoreColor = "#8f61f9";
-      message = "Not bad!\nBut you can do better!";
+      message = "Não foi ruim!\nMas você consegue ir melhor!";
     } else {
       animation = BAD_ANIMATION;
-      message = "Better luck next time!";
+      message = "Boa sorte na próxima vez!";
       scoreColor = "#FF2020";
     }
 
     return (
       <View style={styles.container}>
-        <ImageBackground
-          style={styles.imageBackground}
-          source={BACKGROUND_IMAGE}
-          resizeMode="cover"
-        >
-          {this.state.fontLoaded && (
-            <View style={styles.gameOverData}>
-              <ScrollView>
-                <View style={styles.gameOverInternal}>
-                  <Text style={styles.gameOverTitle}>GAME OVER</Text>
-                  <LottieView
-                    style={styles.statusAnimation}
-                    source={animation}
-                    autoPlay
-                    loop
-                  />
-                  <Text style={[styles.gameOverMessage, { color: scoreColor }]}>
-                    {message}
-                  </Text>
-                  <Text style={[styles.gameScoreText, { color: scoreColor }]}>
-                    Total Score: {totalScore} of {totalQuestionsNumber}
-                  </Text>
-                  <Text style={styles.gameStatusText}>
-                    Elapsed Time: {elapsedTime} seconds
-                  </Text>
-                  <Text style={styles.gameStatusText}>
-                    Category: {selectedCategory}
-                  </Text>
-                  <Text style={styles.gameStatusText}>
-                    Difficulty: {selectedDifficulty}
-                  </Text>
-                  <Button onPress={startGameSelection}>Play Again</Button>
-                  <Button style={styles.mainMenuButton} onPress={goToMainMenu}>
-                    Back to Main Menu
-                  </Button>
-                </View>
-              </ScrollView>
-            </View>
-          )}
-        </ImageBackground>
+        {this.state.fontLoaded && (
+          <SafeAreaView style={styles.gameOverData}>
+            <ScrollView style={{ flex: 1 }}>
+              <View style={styles.gameOverInternal}>
+                <Text style={styles.gameOverTitle}>Fim de jogo</Text>
+                <LottieView
+                  style={styles.statusAnimation}
+                  source={animation}
+                  autoPlay
+                  loop
+                />
+                <Text style={[styles.gameOverMessage, { color: scoreColor }]}>
+                  {message}
+                </Text>
+                <Text style={[styles.gameScoreText, { color: scoreColor }]}>
+                  Ranking: {totalScore} de {totalQuestionsNumber}
+                </Text>
+                <Text style={styles.gameStatusText}>
+                  Tempo total: {elapsedTime} seconds
+                </Text>
+                <Text style={styles.gameStatusText}>
+                  Categoria: {selectedCategory}
+                </Text>
+                <Text style={styles.gameStatusText}>
+                  Dificuldade: {selectedDifficulty}
+                </Text>
+                <Button onPress={startGameSelection}>Jogar novamente</Button>
+                <Button style={styles.mainMenuButton} onPress={goToMainMenu}>
+                  Voltar para o início
+                </Button>
+              </View>
+            </ScrollView>
+          </SafeAreaView>
+        )}
       </View>
     );
   }
@@ -164,30 +159,25 @@ class GameOver extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  imageBackground: {
-    flex: 1,
-    height: "100%",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: "#DA5F26",
   },
   gameOverData: {
     padding: scale(16),
-    marginTop: scale(32),
+    marginTop: scale(40),
     marginBottom: scale(32),
-    alignSelf: "stretch",
+    alignSelf: "center",
     alignItems: "center",
-    borderWidth: 2,
+    justifyContent: "center",
     borderRadius: 8,
     borderColor: "#ffffff",
-    justifyContent: "center",
     backgroundColor: "rgba(255, 255, 255, 0.9)",
   },
   gameOverInternal: {
-    alignSelf: "stretch",
+    alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
+    flex: 1,
+    alignContent: "center",
   },
   gameOverMessage: {
     fontSize: moderateScale(28),

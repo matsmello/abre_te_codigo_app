@@ -7,7 +7,7 @@ import { startGameSelection } from "../../actions";
 import { scale, moderateScale, verticalScale } from "../../Scaling";
 
 // Game background image
-const BACKGROUND_IMAGE = require("../../../assets/images/game_background.png");
+const BACKGROUND_IMAGE = require("../../../assets/images/background.png");
 const GAME_TITLE_FONT = require("../../../assets/fonts/SaucerBB.ttf");
 
 const GITHUB_URL =
@@ -40,9 +40,10 @@ class MainMenu extends React.Component {
     this.setState({ fontLoaded: true });
   }
 
-  /**
-   * Open githubpage using default browser.
-   */
+  renderCardGame = () => {
+    return <View></View>;
+  };
+
   handleGithubClick = () => {
     Linking.canOpenURL(GITHUB_URL).then((supported) => {
       if (supported) {
@@ -63,18 +64,22 @@ class MainMenu extends React.Component {
         >
           {this.state.fontLoaded && (
             <View style={styles.gameTitleContainer}>
-              <Text style={styles.gameTitle}> TRIVIA QUIZ </Text>
+              <Text style={styles.gameTitle}> StArt </Text>
             </View>
           )}
           <Button
             style={styles.playButton}
             onPress={this.props.startGameSelection}
           >
-            Play
+            Jogar
           </Button>
-          <Button style={styles.githubButton} onPress={this.handleGithubClick}>
-            Open Github Page
+          <Button
+            style={styles.playButton}
+            onPress={this.props.startGameSelection}
+          >
+            Criar jogo
           </Button>
+          {this.renderCardGame()}
         </ImageBackground>
       </View>
     );
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
   },
   gameTitleContainer: {
     flex: 1,
-    marginTop: scale(60),
+    marginTop: scale(100),
     alignSelf: "center",
     justifyContent: "flex-start",
   },
@@ -101,6 +106,7 @@ const styles = StyleSheet.create({
   },
   playButton: {
     marginBottom: scale(10),
+    backgroundColor: "#DA5F26",
   },
   githubButton: {
     marginBottom: scale(50),

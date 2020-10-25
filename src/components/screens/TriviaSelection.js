@@ -89,7 +89,7 @@ class TriviaSelection extends React.Component {
         >
           <View style={styles.container}>
             <View style={styles.gameTitleContainer}>
-              <Text style={styles.gameTitle}>Select Options</Text>
+              <Text style={styles.gameTitle}>Selecione seu desafio</Text>
             </View>
             <View style={styles.Separator} />
             <Text style={styles.headerText}>Category</Text>
@@ -129,7 +129,7 @@ class TriviaSelection extends React.Component {
 const styles = StyleSheet.create({
   gameTitle: {
     color: "#000000",
-    fontSize: moderateScale(60),
+    fontSize: moderateScale(40),
   },
   gameTitleContainer: {
     textAlign: "center",
