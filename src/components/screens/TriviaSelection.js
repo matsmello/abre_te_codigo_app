@@ -11,8 +11,8 @@ import { scale, moderateScale, verticalScale } from "../../Scaling";
 
 const SELECT_FONT = require("../../../assets/fonts/BadaboomBB_Reg.ttf");
 
-const DIFFICULTY_OPTIONS = ["Mixed", "Easy", "Medium", "Hard"];
-const NUMBER_OF_QUESTIONS = ["10", "20", "30", "40", "50"];
+const DIFFICULTY_OPTIONS = ["Mix", "Fácil", "Médio", "Difícil"];
+const NUMBER_OF_QUESTIONS = ["10", "20"];
 
 /**
  * @description	Trivia setup page screen.
@@ -92,7 +92,7 @@ class TriviaSelection extends React.Component {
               <Text style={styles.gameTitle}>Selecione seu desafio</Text>
             </View>
             <View style={styles.Separator} />
-            <Text style={styles.headerText}>Category</Text>
+            <Text style={styles.headerText}>Categorias</Text>
             <RNPickerSelect
               style={pickerSelectStyles}
               placeholder={{}}
@@ -101,7 +101,7 @@ class TriviaSelection extends React.Component {
               onValueChange={this.handleCategorySelect}
             />
             <View style={styles.Separator} />
-            <Text style={styles.headerText}>Difficulty</Text>
+            <Text style={styles.headerText}>Dificuldade</Text>
             <SegmentedControlTab
               selectedIndex={this.state.selectedDifficulty}
               values={DIFFICULTY_OPTIONS}
@@ -110,14 +110,15 @@ class TriviaSelection extends React.Component {
               onTabPress={this.handleDifficultySelect}
             />
             <View style={styles.Separator} />
-            <Text style={styles.headerText}>Number of Questions</Text>
+            <Text style={styles.headerText}>Número de Perguntas</Text>
             <SegmentedControlTab
               selectedIndex={this.state.selectedQuestion}
               values={NUMBER_OF_QUESTIONS}
               onTabPress={this.handleQuestionSelect}
+              tabStyle={styles.tabStyleQuestion}
             />
             <View style={styles.Separator} />
-            <Button onPress={this.handleStartGame}>Start Quiz</Button>
+            <Button onPress={this.handleStartGame}>Começar a jogar</Button>
           </View>
         </TriviaLoader>
       )
@@ -180,6 +181,13 @@ const styles = StyleSheet.create({
   tabStyle: {
     borderColor: "#D52C43",
     paddingHorizontal: scale(10),
+    height: 50,
+    maxWidth: 80,
+  },
+  tabStyleQuestion: {
+    paddingHorizontal: scale(10),
+    height: 50,
+    maxWidth: 80,
   },
   activeTabStyle: {
     backgroundColor: "#D52C43",
