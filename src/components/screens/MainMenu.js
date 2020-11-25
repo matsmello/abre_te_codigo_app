@@ -3,47 +3,32 @@ import {
   ImageBackground,
   Linking,
   StyleSheet,
-  Text,
   View,
   Image,
+  Dimensions,
 } from "react-native";
 import { connect } from "react-redux";
-import * as Font from "expo-font";
 import Button from "../Button";
 import { startGameSelection } from "../../actions";
-import { scale, moderateScale, verticalScale } from "../../Scaling";
+import { scale, moderateScale } from "../../Scaling";
+import { FontAwesome } from "@expo/vector-icons";
 
 // Game background image
 const BACKGROUND_IMAGE = require("../../../assets/images/background.png");
-const GAME_TITLE_FONT = require("../../../assets/fonts/SaucerBB.ttf");
 
 const GITHUB_URL =
   "https://github.com/computationalcore/react-native-trivia-quiz";
 
-/**
- * @description	Main Menu screen.
- * @constructor
- * @param {Object} props - The props that were defined by the caller of this component.
- * @param {function} props.startGame - Callback when user clicks start game button.
- */
 class MainMenu extends React.Component {
   constructor(props) {
     super(props);
-    /**
-     * @typedef {Object} ComponentState
-     * @property {Object[]} fontLoaded - Indicates whether custom fonts already loaded.
-     */
 
-    /** @type {ComponentState} */
     this.state = {
       fontLoaded: false,
     };
   }
 
   async componentDidMount() {
-    // await Font.loadAsync({
-    //   "game-title": GAME_TITLE_FONT,
-    // });
     this.setState({ fontLoaded: true });
   }
 
@@ -67,39 +52,41 @@ class MainMenu extends React.Component {
         <ImageBackground
           style={styles.imageBackground}
           source={BACKGROUND_IMAGE}
-          resizeMode="cover"
+          resizeMode="contain"
+        />
+        <View style={styles.gameTitleContainer}>
+          <Image
+            source={require("./../../../assets/images/logo_trans.png")}
+            style={{ width: 300, height: 200, borderRadius: 40 }}
+            resizeMode="contain"
+          />
+        </View>
+        <View
+          style={{
+            marginBottom: 30,
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
         >
-          <View style={styles.gameTitleContainer}>
-            <Image
-              source={require("./../../../assets/images/logo.jpeg")}
-              style={{ width: 300, height: 200, borderRadius: 40 }}
-              resizeMode="contain"
-            />
-          </View>
-          <View style={{ marginBottom: 30 }}>
-            <Button
-              style={styles.playButton}
-              onPress={this.props.startGameSelection}
-            >
-              Jogar
-            </Button>
-            <Button
-              style={styles.playButton}
-              onPress={this.props.startGameSelection}
-            >
-              Criar jogo
-            </Button>
-          </View>
-          {this.renderCardGame()}
-        </ImageBackground>
+          <Button
+            style={styles.playButton}
+            onPress={this.props.startGameSelection}
+          >
+            Jogar
+          </Button>
+          <Button
+            style={{ ...styles.playButton, ...{ maxWidth: 100 } }}
+            onPress={this.props.startGameSelection}
+          >
+            <FontAwesome name="search" size={24} color="white" />
+          </Button>
+        </View>
+        {this.renderCardGame()}
       </View>
     );
   }
 }
 
-/**
- * MainMenu component StyleSheet.
- */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -118,14 +105,9 @@ const styles = StyleSheet.create({
   playButton: {
     marginBottom: scale(25),
     backgroundColor: "#DA5F26",
-    shadowColor: "white",
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 1,
     elevation: 5,
+    maxWidth: 150,
+    width: "100%",
   },
   githubButton: {
     marginBottom: scale(50),
@@ -135,7 +117,11 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     width: "100%",
+    maxHeight: ((Dimensions.get("window").height + 120) * 720) / 1130,
+    maxWidth: Dimensions.get("window").width,
     justifyContent: "flex-end",
+    position: "absolute",
+    bottom: 0,
   },
 });
 
