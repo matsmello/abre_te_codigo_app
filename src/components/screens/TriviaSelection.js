@@ -1,33 +1,21 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Dimensions } from "react-native";
 import { connect } from "react-redux";
 import RNPickerSelect from "react-native-picker-select";
 import SegmentedControlTab from "react-native-segmented-control-tab";
-import * as Font from "expo-font";
 import Button from "../Button";
 import TriviaLoader from "../TriviaLoader";
 import * as actions from "../../actions";
-import { scale, moderateScale, verticalScale } from "../../Scaling";
-
-const SELECT_FONT = require("../../../assets/fonts/BadaboomBB_Reg.ttf");
+import { scale, moderateScale } from "../../Scaling";
+import { Ionicons } from "@expo/vector-icons";
 
 const DIFFICULTY_OPTIONS = ["Mix", "Fácil", "Médio", "Difícil"];
 const NUMBER_OF_QUESTIONS = ["10", "20"];
 
-/**
- * @description	Trivia setup page screen.
- * @constructor
- */
 class TriviaSelection extends React.Component {
   constructor() {
     super();
 
-    /**
-     * @typedef {Object} ComponentState
-     * @property {Object[]} fontLoaded - Indicates whether custom fonts already loaded.
-     */
-
-    /** @type {ComponentState} */
     this.state = {
       selectedCategoryId: -1,
       selectedDifficulty: 0,
@@ -36,28 +24,19 @@ class TriviaSelection extends React.Component {
     };
   }
 
-  /**
-   * Lifecycle event handler called just after the App loads into the DOM.
-   * Call the action to fetch quiz data.
-   */
   componentWillMount() {
     this.props.triviaCategoryFetch();
   }
 
   async componentDidMount() {
-    // await Font.loadAsync({
-    //   "select-font": SELECT_FONT,
-    // });
     this.setState({ fontLoaded: true });
   }
 
   handleCategorySelect = (value) => {
-    console.log(value);
     this.setState({ selectedCategoryId: value });
   };
 
   handleQuestionSelect = (index) => {
-    console.log(index);
     this.setState({ selectedQuestion: index });
   };
 
@@ -87,18 +66,22 @@ class TriviaSelection extends React.Component {
           loadingText="Carregando"
           onRetryPressed={() => this.props.startGameSelection()}
         >
-          <View style={styles.container}>
+          <SafeAreaView style={styles.container}>
             <View style={styles.gameTitleContainer}>
               <Text style={styles.gameTitle}>Selecione seu desafio</Text>
             </View>
             <View style={styles.Separator} />
             <Text style={styles.headerText}>Categorias</Text>
             <RNPickerSelect
+              onDownArrow
               style={pickerSelectStyles}
               placeholder={{}}
               value={this.state.selectedCategoryId}
               items={this.props.categories}
               onValueChange={this.handleCategorySelect}
+              Icon={() => (
+                <Ionicons name="ios-arrow-down" size={24} color="black" />
+              )}
             />
             <View style={styles.Separator} />
             <Text style={styles.headerText}>Dificuldade</Text>
@@ -106,8 +89,11 @@ class TriviaSelection extends React.Component {
               selectedIndex={this.state.selectedDifficulty}
               values={DIFFICULTY_OPTIONS}
               tabStyle={styles.tabStyle}
+              tabsContainerStyle={styles.tabsContainerStyle}
               activeTabStyle={styles.activeTabStyle}
               onTabPress={this.handleDifficultySelect}
+              tabTextStyle={{ fontSize: 20, color: "black" }}
+              activeTabTextStyle={{ color: "white", fontWeight: "bold" }}
             />
             <View style={styles.Separator} />
             <Text style={styles.headerText}>Número de Perguntas</Text>
@@ -116,17 +102,21 @@ class TriviaSelection extends React.Component {
               values={NUMBER_OF_QUESTIONS}
               onTabPress={this.handleQuestionSelect}
               tabStyle={styles.tabStyleQuestion}
+              tabsContainerStyle={styles.tabsContainerStyle}
+              tabTextStyle={{ fontSize: 20, color: "black" }}
+              activeTabTextStyle={{ color: "white", fontWeight: "bold" }}
             />
             <View style={styles.Separator} />
-            <Button onPress={this.handleStartGame}>Começar a jogar</Button>
-          </View>
+            <View style={{ flex: 1, justifyContent: "flex-end" }}>
+              <Button onPress={this.handleStartGame}>Começar a jogar</Button>
+            </View>
+          </SafeAreaView>
         </TriviaLoader>
       )
     );
   }
 }
 
-/* TriviaSelection StyleSheet */
 const styles = StyleSheet.create({
   gameTitle: {
     color: "#000000",
@@ -137,9 +127,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
     backgroundColor: "#FFFFFFDD",
     width: "100%",
     height: "100%",
@@ -174,20 +161,55 @@ const styles = StyleSheet.create({
   Separator: {
     marginHorizontal: scale(-10),
     alignSelf: "stretch",
-    borderTopWidth: 1,
-    borderTopColor: "#888888",
     marginTop: scale(24),
   },
   tabStyle: {
     borderColor: "#D52C43",
-    paddingHorizontal: scale(10),
-    height: 50,
-    maxWidth: 80,
+    height: 45,
+    maxWidth: 100,
+    borderRadius: 20,
+    borderTopEndRadius: 20,
+    borderBottomEndRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderBottomStartRadius: 20,
+    borderTopStartRadius: 20,
+    borderWidth: 1,
+    borderEndWidth: 1,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderStartWidth: 1,
+    borderBottomWidth: 1,
+    alignSelf: "center",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  tabsContainerStyle: {
+    justifyContent: "space-evenly",
   },
   tabStyleQuestion: {
     paddingHorizontal: scale(10),
-    height: 50,
-    maxWidth: 80,
+    height: 45,
+    maxWidth: 100,
+    borderRadius: 20,
+    borderTopEndRadius: 20,
+    borderBottomEndRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderBottomStartRadius: 20,
+    borderTopStartRadius: 20,
+    borderWidth: 1,
+    borderEndWidth: 1,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderStartWidth: 1,
+    borderBottomWidth: 1,
   },
   activeTabStyle: {
     backgroundColor: "#D52C43",
@@ -201,16 +223,19 @@ const styles = StyleSheet.create({
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     fontSize: scale(24),
-    textAlign: "center",
     fontWeight: "900",
     paddingVertical: 12,
     paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 4,
     color: "black",
     paddingRight: 30, // to ensure the text is never behind the icon
   },
+  iconContainer: {
+    right: 30,
+    top: 12,
+  },
+  modalViewTop: {},
+  modalViewBottom: {},
+  modalViewTop: {},
   inputAndroid: {
     paddingHorizontal: 10,
     paddingVertical: 8,
@@ -219,6 +244,7 @@ const pickerSelectStyles = StyleSheet.create({
     color: "black",
     paddingRight: 30, // to ensure the text is never behind the icon
   },
+  viewContainer: {},
 });
 
 const mapStateToProps = ({ trivia }) => {
