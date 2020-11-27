@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { scale, moderateScale } from '../Scaling';
@@ -45,7 +46,9 @@ const styles = StyleSheet.create({
     shadowColor:'#F9DC0B',
     shadowOffset:{width: 2, height: 2},
     shadowRadius:1,
-    shadowOpacity: 1
+    shadowOpacity: 1,
+    minWidth: Dimensions.get('window').width - 20,
+    maxWidth: 380
   },
 
   quizOptionDescription: {

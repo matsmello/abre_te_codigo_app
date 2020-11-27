@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions} from "react-native";
 import { connect } from "react-redux";
 import { Audio } from "expo-av";
 import CountdownCircle from "react-native-countdown-circle";
@@ -183,7 +183,7 @@ class TriviaGame extends React.Component {
               </Text> */}
               <Image
                 source={require("./../../../assets/images/points.png")}
-                style={{ width: 80, height: 36, marginRight: 10 }}
+                style={{ width: 80, height: 36}}
                 resizeMode="contain"
               />
             </View>
@@ -209,7 +209,7 @@ class TriviaGame extends React.Component {
 const styles = StyleSheet.create({
   countdownContainer: {
     position: "absolute",
-    left:"50%"
+    left: (Dimensions.get('window').width / 2) - 30,
   },
   noDataContainer: {
     flex: 1,
@@ -241,9 +241,10 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     justifyContent: "space-between", alignItems: "center",
+    borderWidth: 1,
     flexDirection: "row",
-    paddingRight: scale(24),
-    paddingLeft: scale(24),
+    paddingRight: scale(12),
+    paddingLeft: scale(12),
     paddingTop: scale(12),
     paddingBottom: scale(12),
     borderWidth: 2,

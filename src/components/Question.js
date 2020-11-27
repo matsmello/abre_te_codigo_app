@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import {
   View,
@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import QuestionOptionItem from "./QuestionOptionItem";
 import { scale, moderateScale, verticalScale } from "../Scaling";
+import LottieView from "lottie-react-native";
+const LOADING_ANIMATION = require("../../assets/animations/2151-loading-hamster.json");
 
 const propTypes = {
   category: PropTypes.string.isRequired,
@@ -25,6 +27,13 @@ const defaultProps = {
 };
 
 function Question(props) {
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 3000)
+  }, [])
+
   return (
     <View style={styles.questionDataContainer}>
       <View style={styles.questionData}>
@@ -43,8 +52,16 @@ function Question(props) {
             alignSelf: "center",
             alignItems: "center",
           }}
-        >
-          {props.image ? (
+        > 
+          {props.image && loading ? ( <View style={styles.loaderContainer}>
+              <LottieView
+                style={styles.loaderAnimation}
+                source={LOADING_ANIMATION}
+                autoPlay
+                loop
+              />
+            </View>) : null}
+          {props.image && !loading ? (
             <Image
               source={{ uri: props.image }}
               resizeMode="cover"
@@ -83,6 +100,23 @@ function Question(props) {
 }
 
 const styles = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    height: "100%",
+    width: "100%",
+    paddingTop: 0,
+    borderWidth: 2,
+    borderRadius: 8,
+    borderColor: "#ffffff",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+  },
+  loaderAnimation: {
+    width: moderateScale(200),
+    height: verticalScale(200),
+  },
   questionDataContainer: {
     flex: 1,
     justifyContent: "center",
