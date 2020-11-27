@@ -1,6 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import QuestionOptionItem from "./QuestionOptionItem";
 import { scale, moderateScale, verticalScale } from "../Scaling";
 
@@ -22,21 +30,54 @@ function Question(props) {
       <View style={styles.questionData}>
         <Text style={styles.questionDescription}>{props.question}</Text>
       </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          alignContent: "center",
+          width: Dimensions.get("window").width,
+        }}
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
+        <View
+          style={{
+            alignSelf: "center",
+            alignItems: "center",
+          }}
+        >
+          {props.image ? (
+            <Image
+              source={{ uri: props.image }}
+              resizeMode="cover"
+              style={{
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: "white",
+                backgroundColor: "white",
+                height: Dimensions.get("window").width - 30,
+                width: Dimensions.get("window").width - 30,
+                maxWidth: 400,
+                maxHeight: 400,
+                margin: 20,
+              }}
+            />
+          ) : null}
 
-      <FlatList
-        style={styles.questionOptions}
-        data={props.options}
-        contentContainerStyle={styles.questionOptionsContainer}
-        renderItem={({ item }) => (
-          <QuestionOptionItem
-            optionDescription={item}
+          <FlatList
+            style={styles.questionOptions}
+            data={props.options}
+            contentContainerStyle={styles.questionOptionsContainer}
+            renderItem={({ item }) => (
+              <QuestionOptionItem
+                optionDescription={item}
+                onPressItem={props.onItemSelected}
+              />
+            )}
+            keyExtractor={(item, index) => `${index}-${item}`}
             onPressItem={props.onItemSelected}
+            scrollEnabled={true}
           />
-        )}
-        keyExtractor={(item, index) => `${index}-${item}`}
-        onPressItem={props.onItemSelected}
-        scrollEnabled={true}
-      />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -51,22 +92,19 @@ const styles = StyleSheet.create({
   },
 
   questionData: {
-    padding: scale(16),
-    marginTop: scale(32),
-    marginBottom: scale(32),
     alignSelf: "stretch",
     maxHeight: verticalScale(280),
     borderWidth: 2,
     borderRadius: 8,
     borderColor: "#ffffff",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     backgroundColor: "rgba(255, 255, 255, 0.9)",
   },
 
   questionDescription: {
     color: "#000",
-    fontSize: moderateScale(20),
-    textAlign: "center",
+    fontSize: moderateScale(22),
+    fontWeight: "bold",
   },
 
   questionOptions: {

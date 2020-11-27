@@ -153,15 +153,22 @@ class TriviaGame extends React.Component {
         ) : (
           <View style={styles.container}>
             <View style={styles.headerContainer}>
-              <Text style={styles.headerTitle}>
-                {currentQuestionNumber}/{totalQuestionsSize}
-              </Text>
+              <View style={{ flexDirection: "row"}}>
+                <Image
+                  source={require("./../../../assets/images/question.png")}
+                  style={{ width: 15, height: 15, marginRight: 10 }}
+                  resizeMode="contain"
+                />
+                <Text style={styles.headerTitle}>
+                  {currentQuestionNumber}/{totalQuestionsSize}
+                </Text>
+              </View>
               {!this.state.answerStatus && (
                 <View style={styles.countdownContainer}>
                   <CountdownCircle
                     seconds={this.state.countdownTime}
-                    radius={30}
-                    borderWidth={8}
+                    radius={26}
+                    borderWidth={6}
                     color="#DA5F26"
                     bgColor="white"
                     shadowColor="#F4BA18"
@@ -170,30 +177,18 @@ class TriviaGame extends React.Component {
                   />
                 </View>
               )}
-              <Text style={styles.categoryText}>
+              {/* <Text style={styles.categoryText}>
                 {this.props.selectedCategory} -{" "}
                 {capitalizeFirstLetter(currentQuestion.difficulty)}
-              </Text>
-            </View>
-            {currentQuestion.image ? (
+              </Text> */}
               <Image
-                source={{ uri: currentQuestion.image }}
+                source={require("./../../../assets/images/points.png")}
+                style={{ width: 80, height: 36, marginRight: 10 }}
                 resizeMode="contain"
-                style={{
-                  borderWidth: 5,
-                  borderRadius: 10,
-                  borderColor: "white",
-                  backgroundColor: "white",
-                  height: 100,
-                  width: "90%",
-                  margin: 20,
-                  flex: 1,
-                  justifyContent: "center",
-                  alignSelf: "center",
-                }}
               />
-            ) : null}
+            </View>
             <Question
+            image={currentQuestion.image}
               question={currentQuestion.question}
               options={currentQuestion.options}
               type={currentQuestion.type}
@@ -213,10 +208,8 @@ class TriviaGame extends React.Component {
  */
 const styles = StyleSheet.create({
   countdownContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    alignSelf: "center",
+    position: "absolute",
+    left:"50%"
   },
   noDataContainer: {
     flex: 1,
@@ -247,8 +240,8 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   headerContainer: {
-    //flexDirection: 'row',
-    justifyContent: "center",
+    justifyContent: "space-between", alignItems: "center",
+    flexDirection: "row",
     paddingRight: scale(24),
     paddingLeft: scale(24),
     paddingTop: scale(12),
