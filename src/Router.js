@@ -12,9 +12,9 @@ const RouterComponent = () => {
   return (
     <Router>
       <Scene key="main" hideNavBar={true}>
-        <Scene key="mainMenu" component={MainMenu} initial />
+        <Scene key="mainMenu" component={MainMenu} />
         <Scene key="triviaSelection" component={TriviaSelection} />
-        <Scene key="triviaGame" component={TriviaGame} />
+        <Scene key="triviaGame" component={TriviaGame} initial />
         <Scene key="gameOver" component={GameOver} />
       </Scene>
     </Router>

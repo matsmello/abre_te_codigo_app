@@ -18,7 +18,7 @@ const AVAILABLE_SOUNDS = {
   timeout: require("../../../assets/sounds/timeout.wav"),
 };
 
-const COUNTDOWN_TIME = 10;
+const COUNTDOWN_TIME = 99999;
 
 /**
  * @description	Trivia Game Screen.
@@ -104,9 +104,7 @@ class TriviaGame extends React.Component {
         ? "correct"
         : "incorrect";
     this.playSound(type);
-    //console.log('---');
-    //console.log(currentQuestion.correct_answer);
-    //console.log(questionOption);
+
     this.setState({ answerStatus: true, answerType: type });
     setTimeout(function () {
       app.setState({ answerStatus: false, countdownTime: COUNTDOWN_TIME });
@@ -156,14 +154,27 @@ class TriviaGame extends React.Component {
           <View style={styles.container}>
             <View style={styles.headerContainer}>
               <Text style={styles.headerTitle}>
-                Pergunta {currentQuestionNumber}/{totalQuestionsSize}
+                {currentQuestionNumber}/{totalQuestionsSize}
               </Text>
+              {!this.state.answerStatus && (
+                <View style={styles.countdownContainer}>
+                  <CountdownCircle
+                    seconds={this.state.countdownTime}
+                    radius={30}
+                    borderWidth={8}
+                    color="#DA5F26"
+                    bgColor="white"
+                    shadowColor="#F4BA18"
+                    textStyle={{ fontSize: 20, fontWeight: "bold" }}
+                    onTimeElapsed={() => this.handleAnswerSelection(null)}
+                  />
+                </View>
+              )}
               <Text style={styles.categoryText}>
                 {this.props.selectedCategory} -{" "}
                 {capitalizeFirstLetter(currentQuestion.difficulty)}
               </Text>
             </View>
-            {console.log(currentQuestion)}
             {currentQuestion.image ? (
               <Image
                 source={{ uri: currentQuestion.image }}
@@ -190,20 +201,6 @@ class TriviaGame extends React.Component {
               category={currentQuestion.category}
               onItemSelected={this.handleAnswerSelection}
             />
-            {!this.state.answerStatus && (
-              <View style={styles.countdownContainer}>
-                <CountdownCircle
-                  seconds={this.state.countdownTime}
-                  radius={scale(40)}
-                  style={styles.itemStyle}
-                  borderWidth={scale(10)}
-                  color="#ff003f"
-                  bgColor="#ffffff"
-                  textStyle={{ fontSize: moderateScale(20) }}
-                  onTimeElapsed={() => this.handleAnswerSelection(null)}
-                />
-              </View>
-            )}
           </View>
         )}
       </TriviaLoader>
@@ -251,13 +248,11 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     //flexDirection: 'row',
-    alignItems: "center",
     justifyContent: "center",
     paddingRight: scale(24),
     paddingLeft: scale(24),
     paddingTop: scale(12),
     paddingBottom: scale(12),
-    backgroundColor: "#00BCD4",
     borderWidth: 2,
     borderRadius: 8,
     borderColor: "#ffffff",
@@ -266,9 +261,9 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontWeight: "300",
-    color: "#ffffff",
-    fontSize: moderateScale(28),
-    fontWeight: "900",
+    color: "black",
+    fontSize: moderateScale(16),
+    fontWeight: "500",
   },
   categoryText: {
     fontWeight: "300",

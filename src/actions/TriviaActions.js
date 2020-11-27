@@ -22,7 +22,6 @@ export const triviaCategoryFetch = () => {
   return (dispatch) => {
     TriviaAPI.getCategories()
       .then((categories) => {
-        //console.log(categories);
         categories = categories
           .map((category) => {
             return {
@@ -98,7 +97,6 @@ export const triviaFetch = (
             Math.floor(Math.random() * questionsMockup.length)
           ];
         });
-        //console.log(formatedQuestions);
         dispatch({ type: TRIVIA_FETCH_SUCCESS, payload: formatedQuestions });
       })
       .catch(function () {

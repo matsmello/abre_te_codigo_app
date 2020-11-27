@@ -30,50 +30,44 @@ class TriviaLoader extends React.Component {
 
     return (
       <View style={styles.container}>
-        <ImageBackground
-          style={styles.imageBackground}
-          source={loading || error ? BACKGROUND_IMAGE : BACKGROUND_IMAGE_ACTIVE}
-          resizeMode="cover"
-        >
-          {loading || error ? (
-            loading ? (
-              <View style={styles.loaderContainer}>
-                <LottieView
-                  style={styles.loaderAnimation}
-                  source={LOADING_ANIMATION}
-                  autoPlay
-                  loop
-                />
-                <Text style={styles.loaderText}>{loadingText}</Text>
-              </View>
-            ) : (
-              <View style={styles.loaderContainer}>
-                <LottieView
-                  style={styles.errorAnimation}
-                  source={ERROR_ANIMATION}
-                  autoPlay
-                  loop
-                />
-                <Text style={styles.errorText}>Request Error</Text>
-                <Text style={styles.errorDescription}>
-                  Unable to get questions from server.
-                </Text>
-                <Text style={styles.errorDescription}>Possible reasons:</Text>
-                <Text style={[styles.errorDescription, styles.errorIssue]}>
-                  {" "}
-                  - Internet connectivity issue
-                </Text>
-                <Text style={[styles.errorDescription, styles.errorIssue]}>
-                  {" "}
-                  - Server Instability
-                </Text>
-                <Button onPress={onRetryPressed}>Try Again</Button>
-              </View>
-            )
+        {loading || error ? (
+          loading ? (
+            <View style={styles.loaderContainer}>
+              <LottieView
+                style={styles.loaderAnimation}
+                source={LOADING_ANIMATION}
+                autoPlay
+                loop
+              />
+              <Text style={styles.loaderText}>{loadingText}</Text>
+            </View>
           ) : (
-            this.props.children
-          )}
-        </ImageBackground>
+            <View style={styles.loaderContainer}>
+              <LottieView
+                style={styles.errorAnimation}
+                source={ERROR_ANIMATION}
+                autoPlay
+                loop
+              />
+              <Text style={styles.errorText}>Request Error</Text>
+              <Text style={styles.errorDescription}>
+                Unable to get questions from server.
+              </Text>
+              <Text style={styles.errorDescription}>Possible reasons:</Text>
+              <Text style={[styles.errorDescription, styles.errorIssue]}>
+                {" "}
+                - Internet connectivity issue
+              </Text>
+              <Text style={[styles.errorDescription, styles.errorIssue]}>
+                {" "}
+                - Server Instability
+              </Text>
+              <Button onPress={onRetryPressed}>Try Again</Button>
+            </View>
+          )
+        ) : (
+          this.props.children
+        )}
       </View>
     );
   }
